@@ -1,0 +1,99 @@
+@font-face {
+    font-family: 'mlc';
+    src: url(../font/Melancholy-Serif.otf);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #0b661b;
+}
+
+.container {
+    width: 80%;
+    margin: 50px auto;
+    display: flex;
+    justify-content: center;
+    font-family: 'mlc';
+}
+
+.main {
+    padding: 50px;
+    background: linear-gradient(to bottom right,rgb(6, 214, 86),#06ec2c,rgba(0, 255, 76, 0.842),rgb(18, 223, 18));
+    border-radius: 30px;
+    box-shadow: 0 0 4px rgba(0, 0, 0, .8);
+}
+
+.main h1 {
+    text-align: center;
+    margin-bottom: 50px;
+    font-size: 4em;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.form-group>input {
+    font-size: 1em;
+    padding: 5px;
+}
+
+.form-group>.email {
+    margin-right: -35px;
+}
+
+.form-group>label {
+    font-size: 1.2em;
+    margin-right: 10px;
+}
+
+.button-group {
+    display: flex;
+    justify-content: center;
+}
+
+.button-group>button {
+    padding: 10px 50px;
+    font-size: 1.5em;
+    border-radius: 15px;
+    border: 1px solid black;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, .8);
+    cursor: pointer;
+    background-color: aqua;
+    margin-bottom: 10px;
+    transition: all .3s;
+}
+
+.button-group>button:hover {
+    background-color: rgb(3, 192, 192);
+    color: white;
+    transform: scale(.9);
+}
+
+.text {
+    display: flex;
+    justify-content: space-around;
+}
+
+.text>a {
+    text-decoration: none;
+    color: black;
+    font-size: .9em;
+    transition: all .3s;
+}
+
+.text>a:hover {
+    transform: translateY(8%) scale(1.1);
+    color: rgb(10, 108, 236);
+}
