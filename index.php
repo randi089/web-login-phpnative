@@ -49,7 +49,8 @@ if (isset($_POST['login'])) {
             $salah = 'Passoword atau Email salah!';
             $kosong = 'Passoword atau Email tidak boleh kosong!';
             $notDaftar = 'Email belum terdaftar!';
-            $daftar = 'Aku berhasil dibuat! Silahkan Login.';
+            $daftar = 'Akun berhasil dibuat! Silahkan Login.';
+            $reset = 'Password berhasil direset! Silahkan Login.';
             if (isset($nDaftar)) :
             ?>
                 <p><?= $notDaftar; ?></p>
@@ -57,17 +58,21 @@ if (isset($_POST['login'])) {
                 <p><?= $salah; ?></p>
             <?php elseif (isset($eKosong)) : ?>
                 <p><?= $kosong; ?></p>
-            <?php elseif (isset($_SESSION['message'])) : ?>
-                <p class="sukses"><?= $daftar; ?></p>
+                <?php elseif (isset($_SESSION['message'])) :
+                if ($_SESSION['message'] == 'daftar') : ?>
+                    <p class="sukses"><?= $daftar; ?></p>
+                <?php
+                    unset($_SESSION['message']);
+                elseif ($_SESSION['message'] == 'reset') : ?>
+                    <p class="sukses"><?= $reset; ?></p>
             <?php
-                unset($_SESSION['message']);
+                    unset($_SESSION['message']);
+                endif;
             endif; ?>
             <form action="" method="post" class="form">
                 <div class="form-group">
-                </div>
-                <div class="form-group">
                     <label for="email">Email : </label>
-                    <input type="email" class="email" name="email" id="email" autofocus>
+                    <input type="email" name="email" id="email" autofocus>
                 </div>
                 <div class="form-group">
                     <label for="password">Password : </label>

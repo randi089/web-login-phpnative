@@ -65,11 +65,16 @@ function daftar($data)
         return 'kosong';
     } elseif ($password != $password1) {
         return 'pass';
-    } else {
-        $result = mysqli_query($conn, "SELECT * FROM user WHERE email = '$email'");
+    } elseif ($stmt = $conn->prepare('SELECT * FROM user WHERE email = ?')) {
+        // Bind parameters (s = string, i = int, b = blob, etc), in our case the email is a string so we use "s".
+        $stmt->bind_param('s', $email);
+        $stmt->execute();
 
-        // cek apakah email sudah terdaftar
-        if (mysqli_num_rows($result) > 0) {
+        // Store the result so we can check if the account exists in the database.
+        $stmt->store_result();
+
+        // cek email apakah sudah terdaftar
+        if ($stmt->num_rows() > 0) {
             return 'daftar';
         } else {
             // enkripsi password
@@ -79,5 +84,60 @@ function daftar($data)
             mysqli_query($conn, "INSERT INTO user VALUES('', '$username', '$email', '$password')");
             return 'ok';
         }
+
+        $stmt->close();
+    }
+}
+
+// cek reset password
+function cekReset($email)
+{
+    global $conn;
+    if (empty($email)) {
+        return 'kosong';
+    }
+    // Prepare our SQL, preparing the SQL statement will prevent SQL injection.
+    elseif ($stmt = $conn->prepare('SELECT id FROM user WHERE email = ?')) {
+        // Bind parameters (s = string, i = int, b = blob, etc), in our case the email is a string so we use "s".
+        $stmt->bind_param('s', $email);
+        $stmt->execute();
+
+        // Store the result so we can check if the account exists in the database.
+        $stmt->store_result();
+
+        if ($stmt->num_rows() > 0) {
+            $stmt->bind_result($id);
+            $stmt->fetch();
+
+            // set session reset
+            $_SESSION['reset'] = $id;
+            return 'ok';
+        } else {
+            return 'salah';
+        }
+
+        $stmt->close();
+    }
+}
+
+// Reset Password
+function resetP($id, $data)
+{
+    global $conn;
+
+    $password = $data['password'];
+    $password1 = $data['password1'];
+
+    if (empty($password) || empty($password1)) {
+        return 'kosong';
+    } elseif ($password != $password1) {
+        return 'salah';
+    } else {
+        // hash password
+        $password = password_hash($password, PASSWORD_DEFAULT);
+
+        // update password di database dengan password baru
+        mysqli_query($conn, "UPDATE user SET password = '$password' WHERE id = '$id'");
+        return 'ok';
     }
 }
