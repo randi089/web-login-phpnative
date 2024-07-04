@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 03 Jul 2024 pada 17.35
+-- Waktu pembuatan: 04 Jul 2024 pada 06.01
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -39,7 +39,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `username`, `email`, `password`) VALUES
-(1, 'admin', 'admin@gmail.com', 'admin');
+(1, 'admin', 'admin@gmail.com', '$2y$10$mTRTVqc7gSpzZ8fsbaLzaO6l/QM7WHyCeHAxP2b6pTrhGrJEdX.q.');
 
 --
 -- Indexes for dumped tables

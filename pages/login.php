@@ -23,7 +23,7 @@ $row = $_SESSION['login'];
 
 <body>
     <div class="container">
-        <h1>Data</h1>
+        <h1>Selamat Datang <?= $row['username']; ?></h1>
         <div class="content">
             <div class="label">
                 <p>Username : </p>

@@ -32,7 +32,7 @@ if (isset($_POST['login'])) {
                 // Account exists, now we verify the password.
                 // Note: remember to use password_hash in your registration file to store the hashed passwords.
 
-                if ($passwordI == $password) {
+                if (password_verify($passwordI, $password)) {
                     // Verification success! User has logged in.
                     // Create sessions, so we know the user is logged in, they basically act like cookies but remember the data on the server.
                     $_SESSION['login'] = [
@@ -71,20 +71,25 @@ if (isset($_POST['login'])) {
     <div class="container">
         <main class="main">
             <h1>Login Page</h1>
+            <?php
+            $salah = 'Passoword atau Email salah!';
+            $kosong = 'Passoword atau Email tidak boleh kosong!';
+            $notDaftar = 'Email belum terdaftar!';
+            $daftar = 'Aku berhasil dibuat! Silahkan Login.';
+            if (isset($nDaftar)) :
+            ?>
+                <p><?= $notDaftar; ?></p>
+            <?php elseif (isset($pSalah)) : ?>
+                <p><?= $salah; ?></p>
+            <?php elseif (isset($eKosong)) : ?>
+                <p><?= $kosong; ?></p>
+            <?php elseif (isset($_SESSION['message'])) : ?>
+                <p class="sukses"><?= $daftar; ?></p>
+            <?php
+                unset($_SESSION['message']);
+            endif; ?>
             <form action="" method="post" class="form">
                 <div class="form-group">
-                    <?php
-                    $salah = 'Passoword atau Email salah!';
-                    $kosong = 'Passoword atau Email tidak boleh kosong!';
-                    $notDaftar = 'Email belum terdaftar!';
-                    if (isset($nDaftar)) :
-                    ?>
-                        <p><?= $notDaftar; ?></p>
-                    <?php elseif (isset($pSalah)) : ?>
-                        <p><?= $salah; ?></p>
-                    <?php elseif (isset($eKosong)) : ?>
-                        <p><?= $kosong; ?></p>
-                    <?php endif; ?>
                 </div>
                 <div class="form-group">
                     <label for="email">Email : </label>
@@ -98,8 +103,8 @@ if (isset($_POST['login'])) {
                     <button type="submit" name="login">Login</button>
                 </div>
                 <div class="text">
-                    <a href="" class="daftar">Belum punya akun?</a>
-                    <a href="" class="lupa">Lupa password?</a>
+                    <a href="pages/daftar.php" class="daftar">Belum punya akun?</a>
+                    <a href="pages/lupa.php" class="lupa">Lupa password?</a>
                 </div>
             </form>
         </main>
