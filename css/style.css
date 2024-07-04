@@ -44,6 +44,11 @@ body {
     margin-bottom: 20px;
 }
 
+.form-group>p {
+    color: rgb(224, 21, 21);
+    font-style: italic;
+}
+
 .form-group>input {
     font-size: 1em;
     padding: 5px;
